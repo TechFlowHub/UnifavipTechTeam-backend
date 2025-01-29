@@ -3,16 +3,18 @@ package com.unifavipTechTeam.favip.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigInteger;
+
 @Entity
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue
+    private Long id;
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -40,7 +42,7 @@ public class User {
         return role;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
