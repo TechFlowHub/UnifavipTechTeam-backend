@@ -44,9 +44,9 @@ public class EmailController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized: Invalid token");
         }
         if(optionalUser.isPresent()){
-            sendEmailService.sendFirstAcessCode(emailDto.to());
+            sendEmailService.sendFirstAccessCode(emailDto.to());
             return ResponseEntity.ok("Email sent");
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("algo errado");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("something went wrong");
     }
 }
