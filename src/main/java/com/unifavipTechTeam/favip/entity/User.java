@@ -3,8 +3,6 @@ package com.unifavipTechTeam.favip.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigInteger;
-
 @Entity
 @Table(name = "users")
 @AllArgsConstructor
