@@ -21,12 +21,12 @@ public class SendEmailService {
         this.recoveryCodeRepository = recoveryCodeRepository;
     }
 
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789<!@#$%&>";
     private static final SecureRandom RANDOM = new SecureRandom();
 
     private String generateRecoveryCode() {
-        StringBuilder code = new StringBuilder(10);
-        for (int i = 0; i < 10; i++) {
+        StringBuilder code = new StringBuilder(24);
+        for (int i = 0; i < 24; i++) {
             int index = RANDOM.nextInt(CHARACTERS.length());
             code.append(CHARACTERS.charAt(index));
         }
@@ -34,7 +34,7 @@ public class SendEmailService {
     }
 
     public void sendFirstAccessCode(String to) {
-        String recoveryCode = generateRecoveryCode(); // Gera o código
+        String recoveryCode = generateRecoveryCode();
 
         Optional<RecoveryCode> existingRecoveryCodeOpt = recoveryCodeRepository.findByEmail(to);
 
@@ -53,11 +53,11 @@ public class SendEmailService {
         recoveryCodeRepository.save(recoveryCodeEntity);
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(to);
-        email.setSubject("Código de Primeiro Acesso");
-        email.setText("Este é o seu código de primeiro acesso: " + recoveryCode);
+        email.setSubject("First Access Code");
+        email.setText("This is your first access code: " + recoveryCode);
         javaMailSender.send(email);
 
-        System.out.println("E-mail enviado com o código de recuperação.");
+        System.out.println("email sent with recuperation code");
     }
 
     public void sendEmail(String to, String subject, String text) {
@@ -67,6 +67,6 @@ public class SendEmailService {
         email.setText(text);
         javaMailSender.send(email);
 
-        System.out.println("E-mail enviado.");
+        System.out.println("e-mail sent.");
     }
 }

@@ -47,6 +47,6 @@ public class EmailController {
             sendEmailService.sendFirstAccessCode(emailDto.to());
             return ResponseEntity.ok("Email sent");
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("algo errado");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("something went wrong");
     }
 }

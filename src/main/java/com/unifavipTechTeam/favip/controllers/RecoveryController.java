@@ -24,15 +24,15 @@ public class RecoveryController {
         Optional<RecoveryCode> recoveryCodeOpt = recoveryCodeRepository.findByEmail(verificationDto.email());
 
         if (recoveryCodeOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Código de recuperação não encontrado.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("verification code not found.");
         }
 
         RecoveryCode recoveryCode = recoveryCodeOpt.get();
 
         if (!recoveryCode.getCode().equals(verificationDto.code())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Código de recuperação inválido.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("invalid recuperation code.");
         }
 
-        return ResponseEntity.ok("Código de recuperação válido.");
+        return ResponseEntity.ok("valid recuperation code.");
     }
 }
