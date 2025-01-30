@@ -12,9 +12,6 @@ public class Courses {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToOne(mappedBy = "courses")
-    private PersonalData personalData;
-
     public Long getId() {
         return id;
     }

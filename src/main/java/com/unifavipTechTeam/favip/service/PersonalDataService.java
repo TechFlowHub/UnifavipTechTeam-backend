@@ -72,43 +72,52 @@ public class PersonalDataService {
         personalData.setDisability(personalDataDTO.disability());
         personalData.setDisabilityDescription(personalDataDTO.disabilityDescription());
         personalData.setBirthDate(personalDataDTO.birthDate());
-        
+    
+        // Set user (required field)
         User user = userRepository.findById(personalDataDTO.user())
                 .orElseThrow(() -> new RuntimeException("User not found: " + personalDataDTO.user()));
         personalData.setUser(user);
-
-        Diversity diversity = diversityRepository.findById(personalDataDTO.diversity())
-                .orElseThrow(() -> new RuntimeException("User diversity not found: " + personalDataDTO.diversity()));
-        personalData.setDiversity(diversity);
-
+    
+        // Set diversity (nullable)
+        if (personalDataDTO.diversity() != null) {
+            Diversity diversity = diversityRepository.findById(personalDataDTO.diversity())
+                    .orElseThrow(() -> new RuntimeException("User diversity not found: " + personalDataDTO.diversity()));
+            personalData.setDiversity(diversity);
+        } else {
+            personalData.setDiversity(null); // Explicitly set to null if not provided
+        }
+    
+        // Set course (required field)
         Courses courses = coursesRepository.findById(personalDataDTO.course())
                 .orElseThrow(() -> new RuntimeException("Course not found: " + personalDataDTO.course()));
         personalData.setCourses(courses);
-
+    
+        // Set experiences (nullable)
         if (personalDataDTO.experiences() != null && !personalDataDTO.experiences().isEmpty()) {
             List<Experience> experiences = personalDataDTO.experiences().stream()
-                .map(experienceId -> {
-                    Experience experience = new Experience();
-                    experience.setId(experienceId);
-                    return experience;
-                })
-                .collect(Collectors.toList());
+                    .map(experienceId -> {
+                        Experience experience = new Experience();
+                        experience.setId(experienceId);
+                        return experience;
+                    })
+                    .collect(Collectors.toList());
             personalData.setExperiences(experiences);
         } else {
-            personalData.setExperiences(null);
+            personalData.setExperiences(null); // Explicitly set to null if not provided
         }
-
+    
+        // Set formations (nullable)
         if (personalDataDTO.formations() != null && !personalDataDTO.formations().isEmpty()) {
             List<Formation> formations = personalDataDTO.formations().stream()
-                .map(formationId -> {
-                    Formation formation = new Formation();
-                    formation.setId(formationId);
-                    return formation;
-                })
-                .collect(Collectors.toList());
+                    .map(formationId -> {
+                        Formation formation = new Formation();
+                        formation.setId(formationId);
+                        return formation;
+                    })
+                    .collect(Collectors.toList());
             personalData.setFormations(formations);
         } else {
-            personalData.setFormations(null);
+            personalData.setFormations(null); // Explicitly set to null if not provided
         }
     }
 
@@ -123,10 +132,10 @@ public class PersonalDataService {
             personalData.getDisabilityDescription(),
             personalData.getBirthDate(), 
             personalData.getUser().getId(),
-            personalData.getDiversity().getId(),
+            personalData.getDiversity() != null ? personalData.getDiversity().getId() : null,
             personalData.getCourses().getId(),
             personalData.getExperiences() != null ? personalData.getExperiences().stream().map(Experience::getId).collect(Collectors.toList()) : Collections.emptyList(), 
             personalData.getFormations() != null ? personalData.getFormations().stream().map(Formation::getId).collect(Collectors.toList()) : Collections.emptyList()
-            );
+        );
     }
 }

@@ -1,5 +1,5 @@
 package com.unifavipTechTeam.favip.dto;
 
-public record CoursesDTO(Long id, String name, Long personalData) {
+public record CoursesDTO(Long id, String name) {
     
 }
