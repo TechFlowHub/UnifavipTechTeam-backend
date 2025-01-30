@@ -14,6 +14,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String email;
+
+    private String password;
+    
+    private String role;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -46,7 +52,4 @@ public class User {
         return id;
     }
 
-    private String email;
-    private String password;
-    private String role;
 }
