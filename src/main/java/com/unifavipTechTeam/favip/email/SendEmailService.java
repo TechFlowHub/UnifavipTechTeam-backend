@@ -36,27 +36,21 @@ public class SendEmailService {
     public void sendFirstAccessCode(String to) {
         String recoveryCode = generateRecoveryCode(); // Gera o código
 
-        // Verifica se já existe um código para o email
         Optional<RecoveryCode> existingRecoveryCodeOpt = recoveryCodeRepository.findByEmail(to);
 
         RecoveryCode recoveryCodeEntity;
         if (existingRecoveryCodeOpt.isPresent()) {
-            // Se existir, atualiza o código e o horário de criação
             recoveryCodeEntity = existingRecoveryCodeOpt.get();
             recoveryCodeEntity.setCode(recoveryCode);
             recoveryCodeEntity.setCreatedAt(LocalDateTime.now());
         } else {
-            // Se não existir, cria um novo registro
             recoveryCodeEntity = new RecoveryCode();
             recoveryCodeEntity.setEmail(to);
             recoveryCodeEntity.setCode(recoveryCode);
             recoveryCodeEntity.setCreatedAt(LocalDateTime.now());
         }
 
-        // Salva ou atualiza o código no banco de dados
         recoveryCodeRepository.save(recoveryCodeEntity);
-
-        // Envia o email com o código
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(to);
         email.setSubject("Código de Primeiro Acesso");
