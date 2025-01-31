@@ -2,6 +2,7 @@ package com.unifavipTechTeam.favip.email;
 
 import com.unifavipTechTeam.favip.entity.RecoveryCode;
 import com.unifavipTechTeam.favip.repositories.RecoveryCodeRepository;
+import com.unifavipTechTeam.favip.service.CryptoService;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -34,30 +35,36 @@ public class SendEmailService {
     }
 
     public void sendFirstAccessCode(String to) {
-        String recoveryCode = generateRecoveryCode();
+        try {
+            String recoveryCode = generateRecoveryCode();
+            String encryptedCode = CryptoService.encrypt(recoveryCode);
 
-        Optional<RecoveryCode> existingRecoveryCodeOpt = recoveryCodeRepository.findByEmail(to);
+            Optional<RecoveryCode> existingRecoveryCodeOpt = recoveryCodeRepository.findByEmail(to);
 
-        RecoveryCode recoveryCodeEntity;
-        if (existingRecoveryCodeOpt.isPresent()) {
-            recoveryCodeEntity = existingRecoveryCodeOpt.get();
-            recoveryCodeEntity.setCode(recoveryCode);
-            recoveryCodeEntity.setCreatedAt(LocalDateTime.now());
-        } else {
-            recoveryCodeEntity = new RecoveryCode();
-            recoveryCodeEntity.setEmail(to);
-            recoveryCodeEntity.setCode(recoveryCode);
-            recoveryCodeEntity.setCreatedAt(LocalDateTime.now());
+            RecoveryCode recoveryCodeEntity;
+            if (existingRecoveryCodeOpt.isPresent()) {
+                recoveryCodeEntity = existingRecoveryCodeOpt.get();
+                recoveryCodeEntity.setCode(encryptedCode);
+                recoveryCodeEntity.setCreatedAt(LocalDateTime.now());
+            } else {
+                recoveryCodeEntity = new RecoveryCode();
+                recoveryCodeEntity.setEmail(to);
+                recoveryCodeEntity.setCode(encryptedCode);
+                recoveryCodeEntity.setCreatedAt(LocalDateTime.now());
+            }
+
+            recoveryCodeRepository.save(recoveryCodeEntity);
+
+            SimpleMailMessage email = new SimpleMailMessage();
+            email.setTo(to);
+            email.setSubject("First Access Code");
+            email.setText("This is your first access code: " + recoveryCode);
+            javaMailSender.send(email);
+
+            System.out.println("Email sent with recovery code");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to encrypt recovery code", e);
         }
-
-        recoveryCodeRepository.save(recoveryCodeEntity);
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(to);
-        email.setSubject("First Access Code");
-        email.setText("This is your first access code: " + recoveryCode);
-        javaMailSender.send(email);
-
-        System.out.println("email sent with recuperation code");
     }
 
     public void sendEmail(String to, String subject, String text) {
