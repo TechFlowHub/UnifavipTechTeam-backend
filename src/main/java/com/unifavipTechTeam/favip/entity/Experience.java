@@ -23,7 +23,7 @@ public class Experience {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @OneToOne(fetch = FetchType.EAGER)

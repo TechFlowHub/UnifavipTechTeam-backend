@@ -36,7 +36,6 @@ public class ExperienceController {
 
     @PostMapping("/post")
     public ResponseEntity<?> postExperience(@RequestBody ExperienceDTO experienceDTO) {
-        System.out.println("ExperienceDTO: " + experienceDTO);
         try {
             return ResponseEntity.ok(experienceService.postExperience(experienceDTO));
         } catch (Exception e) {

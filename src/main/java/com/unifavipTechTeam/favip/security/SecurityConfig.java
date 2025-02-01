@@ -50,6 +50,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/experience/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/experience/**").hasAnyRole("USER", "ADMIN")
 
+                        .requestMatchers(HttpMethod.POST, "/formation/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/formation/**").hasAnyRole("USER", "ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
