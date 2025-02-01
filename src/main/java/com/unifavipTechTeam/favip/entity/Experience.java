@@ -26,7 +26,8 @@ public class Experience {
     @Column(name = "description")
     private String description;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "personal_data_id")
     private PersonalData personalData;
 
     public Long getId() {

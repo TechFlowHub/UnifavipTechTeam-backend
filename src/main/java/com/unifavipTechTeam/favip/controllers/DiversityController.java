@@ -39,7 +39,6 @@ public class DiversityController {
 
     @PostMapping("/post")
     public ResponseEntity<?> postDiversity(@RequestBody DiversityDTO diversityDTO) {
-        System.out.println("DiversityDTO: " + diversityDTO);
         try {
             String response = diversityService.postDiversity(diversityDTO);
             return ResponseEntity.ok(response);
