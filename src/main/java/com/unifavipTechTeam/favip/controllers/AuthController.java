@@ -42,7 +42,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Validated RegisterRequestDto body) {
+    public ResponseEntity register(@RequestBody @Validated   RegisterRequestDto body) {
         Optional<User> existingUser = this.userRepository.findByEmail(body.email());
 
         if (existingUser.isEmpty()) {

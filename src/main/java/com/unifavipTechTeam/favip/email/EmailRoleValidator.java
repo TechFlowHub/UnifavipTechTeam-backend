@@ -15,11 +15,15 @@ public class EmailRoleValidator implements ConstraintValidator<EmailRoleValidati
         String email = request.email();
         String role = request.role();
 
-        if ("student".equalsIgnoreCase(role) && !email.endsWith("@aluno.com")) {
+        if ("admin".equalsIgnoreCase(role)) {
             return false;
         }
 
-        if ("teacher".equalsIgnoreCase(role) && !email.endsWith("@professor.com")) {
+        if ("student".equalsIgnoreCase(role) && !email.endsWith("@alunos.unifavip.edu.br")) {
+            return false;
+        }
+
+        if ("teacher".equalsIgnoreCase(role) && !email.endsWith("@professores.unifavip.edu.br")) {
             return false;
         }
 
