@@ -1,30 +1,52 @@
 package com.unifavipTechTeam.favip.entity;
 
+import com.unifavipTechTeam.favip.entity.Enums.*;
+
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "diversity")
 public class Diversity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "social_name")
+    private String socialName;
 
+    @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Column(name = "sex")
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
+    @Column(name = "race")
     @Enumerated(EnumType.STRING)
     private Race race;
 
+    @Column(name = "sexual_orientation")
     @Enumerated(EnumType.STRING)
     private SexualOrientation sexualOrientation;
 
-    @OneToOne(mappedBy = "diversity")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "personal_data_id")
     private PersonalData personalData;
+
+    public Diversity() {
+    }
+
+    public Diversity(Long id, String socialName, Gender gender, Sex sex, Race race, SexualOrientation sexualOrientation, PersonalData personalData) {
+        this.id = id;
+        this.socialName = socialName;
+        this.gender = gender;
+        this.sex = sex;
+        this.race = race;
+        this.sexualOrientation = sexualOrientation;
+        this.personalData = personalData;
+    }
 
     public Long getId() {
         return id;
@@ -34,12 +56,12 @@ public class Diversity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSocialName() {
+        return socialName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSocialName(String socialName) {
+        this.socialName = socialName;
     }
 
     public Gender getGender() {
@@ -73,20 +95,12 @@ public class Diversity {
     public void setSexualOrientation(SexualOrientation sexualOrientation) {
         this.sexualOrientation = sexualOrientation;
     }
-}
 
-enum Gender {
-    MALE, FEMALE, NON_BINARY, OTHER
-}
+    public PersonalData getPersonalData() {
+        return personalData;
+    }
 
-enum Sex {
-    MALE, FEMALE, INTERSEX
-}
-
-enum Race {
-    WHITE, BLACK, ASIAN, HISPANIC, NATIVE_AMERICAN, OTHER
-}
-
-enum SexualOrientation {
-    HETEROSEXUAL, HOMOSEXUAL, BISEXUAL, PANSEXUAL, ASEXUAL, OTHER
+    public void setPersonalData(PersonalData personalData) {
+        this.personalData = personalData;
+    }
 }

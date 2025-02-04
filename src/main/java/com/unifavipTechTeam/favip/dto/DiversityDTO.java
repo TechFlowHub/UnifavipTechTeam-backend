@@ -1,7 +1,13 @@
 package com.unifavipTechTeam.favip.dto;
 
-import com.unifavipTechTeam.favip.entity.PersonalData;
+import com.unifavipTechTeam.favip.entity.Enums.*;
 
-public record DiversityDTO(Long id, String name, String gender, String sex, String race, String sexualOrientation, PersonalData personalData) {
-    
-}
+public record DiversityDTO(
+    Long id,
+    String socialName,
+    Gender gender,
+    Sex sex,
+    Race race,
+    SexualOrientation sexualOrientation,
+    Long personalData
+) {}

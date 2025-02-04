@@ -73,26 +73,22 @@ public class PersonalDataService {
         personalData.setDisabilityDescription(personalDataDTO.disabilityDescription());
         personalData.setBirthDate(personalDataDTO.birthDate());
     
-        // Set user (required field)
         User user = userRepository.findById(personalDataDTO.user())
                 .orElseThrow(() -> new RuntimeException("User not found: " + personalDataDTO.user()));
         personalData.setUser(user);
     
-        // Set diversity (nullable)
         if (personalDataDTO.diversity() != null) {
             Diversity diversity = diversityRepository.findById(personalDataDTO.diversity())
                     .orElseThrow(() -> new RuntimeException("User diversity not found: " + personalDataDTO.diversity()));
             personalData.setDiversity(diversity);
         } else {
-            personalData.setDiversity(null); // Explicitly set to null if not provided
+            personalData.setDiversity(null);
         }
     
-        // Set course (required field)
         Courses courses = coursesRepository.findById(personalDataDTO.course())
                 .orElseThrow(() -> new RuntimeException("Course not found: " + personalDataDTO.course()));
         personalData.setCourses(courses);
     
-        // Set experiences (nullable)
         if (personalDataDTO.experiences() != null && !personalDataDTO.experiences().isEmpty()) {
             List<Experience> experiences = personalDataDTO.experiences().stream()
                     .map(experienceId -> {
@@ -103,10 +99,9 @@ public class PersonalDataService {
                     .collect(Collectors.toList());
             personalData.setExperiences(experiences);
         } else {
-            personalData.setExperiences(null); // Explicitly set to null if not provided
+            personalData.setExperiences(null);
         }
     
-        // Set formations (nullable)
         if (personalDataDTO.formations() != null && !personalDataDTO.formations().isEmpty()) {
             List<Formation> formations = personalDataDTO.formations().stream()
                     .map(formationId -> {
@@ -117,7 +112,7 @@ public class PersonalDataService {
                     .collect(Collectors.toList());
             personalData.setFormations(formations);
         } else {
-            personalData.setFormations(null); // Explicitly set to null if not provided
+            personalData.setFormations(null);
         }
     }
 

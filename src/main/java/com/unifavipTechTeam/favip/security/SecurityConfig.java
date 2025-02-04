@@ -37,10 +37,22 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/email/send").permitAll()
                         .requestMatchers(HttpMethod.POST, "/email/sendFirstAcessCode").permitAll()
                         .requestMatchers(HttpMethod.POST, "/recovery/verify").permitAll()
+                        
                         .requestMatchers(HttpMethod.POST, "/courses/").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/courses/").hasAnyRole("USER", "ADMIN")
+                        
                         .requestMatchers(HttpMethod.POST, "/personalData/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/personalData/**").hasAnyRole("USER", "ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/diversity/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/diversity/**").hasAnyRole("USER", "ADMIN")
+                        
+                        .requestMatchers(HttpMethod.POST, "/experience/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/experience/**").hasAnyRole("USER", "ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/formation/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/formation/**").hasAnyRole("USER", "ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

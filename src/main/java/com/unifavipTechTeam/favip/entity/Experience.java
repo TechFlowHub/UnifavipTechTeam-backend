@@ -23,10 +23,11 @@ public class Experience {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "personal_data_id")
     private PersonalData personalData;
 
     public Long getId() {

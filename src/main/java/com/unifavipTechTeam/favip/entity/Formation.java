@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import jakarta.persistence.*;
 
+import com.unifavipTechTeam.favip.entity.Enums.Level;
+
 @Entity
 @Table(name = "formation")
 public class Formation {
@@ -17,6 +19,7 @@ public class Formation {
     @Column(name = "institution", nullable = false)
     private String institution;
 
+    @Column(name = "level", nullable = false)
     @Enumerated(EnumType.STRING)
     private Level level;
 
@@ -29,7 +32,8 @@ public class Formation {
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "personal_data_id")
     private PersonalData personalData;
 
     public Long getId() {
@@ -95,13 +99,4 @@ public class Formation {
     public void setPersonalData(PersonalData personalData) {
         this.personalData = personalData;
     }
-}
-
-enum Level {
-    HIGH_SCHOOL,
-    TECHNICAL,
-    UNDERGRADUATE,
-    POSTGRADUATE,
-    MASTER,
-    DOCTORATE
 }
