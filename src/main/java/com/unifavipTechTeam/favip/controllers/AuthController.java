@@ -58,4 +58,21 @@ public class AuthController {
 
         return ResponseEntity.badRequest().build();
     }
+    @PostMapping("/registerAdmin")
+    public ResponseEntity registerAdmin(@RequestBody RegisterRequestDto body) {
+        Optional<User> existingUser = this.userRepository.findByEmail(body.email());
+
+        if (existingUser.isEmpty()) {
+            User newUser = new User();
+            newUser.setPassword(passwordEncoder.encode(body.password()));
+            newUser.setEmail(body.email());
+            newUser.setRole(body.role());
+            this.userRepository.save(newUser);
+
+            String token = this.tokenService.generateToken(newUser);
+            return ResponseEntity.ok(new ResponseDto(newUser.getEmail(), token));
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
 }

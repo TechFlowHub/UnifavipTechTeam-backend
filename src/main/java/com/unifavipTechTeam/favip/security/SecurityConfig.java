@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/registerAdmin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/email/send").permitAll()
                         .requestMatchers(HttpMethod.POST, "/email/sendFirstAcessCode").permitAll()
                         .requestMatchers(HttpMethod.POST, "/recovery/verify").permitAll()
