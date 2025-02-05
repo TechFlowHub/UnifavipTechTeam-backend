@@ -35,6 +35,8 @@ public class RecoveryController {
             if (!decryptedCode.equals(verificationDto.code())) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid recuperation code.");
             }
+            recoveryCode.setValid(true);
+            recoveryCodeRepository.save(recoveryCode);
 
             return ResponseEntity.ok("Valid recuperation code.");
         } catch (Exception e) {

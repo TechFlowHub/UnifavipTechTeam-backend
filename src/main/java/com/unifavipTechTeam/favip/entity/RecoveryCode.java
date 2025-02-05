@@ -16,6 +16,8 @@ public class RecoveryCode {
 
     private LocalDateTime createdAt;
 
+    private boolean valid = false;
+
     public Long getId() {
         return id;
     }
@@ -46,5 +48,13 @@ public class RecoveryCode {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }
