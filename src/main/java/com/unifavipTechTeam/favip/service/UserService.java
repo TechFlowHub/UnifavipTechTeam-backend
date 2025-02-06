@@ -5,6 +5,7 @@ import com.unifavipTechTeam.favip.entity.RecoveryCode;
 import com.unifavipTechTeam.favip.entity.User;
 import com.unifavipTechTeam.favip.repositories.RecoveryCodeRepository;
 import com.unifavipTechTeam.favip.repositories.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RecoveryCodeRepository recoveryCodeRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, RecoveryCodeRepository recoveryCodeRepository) {
+    public UserService(UserRepository userRepository, RecoveryCodeRepository recoveryCodeRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.recoveryCodeRepository = recoveryCodeRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserDto> getAllUsers() {
@@ -62,7 +65,8 @@ public class UserService {
         } catch (Exception e) {
             throw new IllegalArgumentException("Error while decrypting the recovery key.", e);
         }
-        user.setPassword(newPassword);
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
         userRepository.save(user);
 
         recoveryCode.setValid(false);

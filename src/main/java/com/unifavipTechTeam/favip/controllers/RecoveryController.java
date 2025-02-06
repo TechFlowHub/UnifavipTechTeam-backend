@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/recovery")
-public class RecoveryController {
+public class    RecoveryController {
 
     private final RecoveryCodeRepository recoveryCodeRepository;
     private final UserService userService;
@@ -45,6 +45,17 @@ public class RecoveryController {
             return ResponseEntity.ok("Recovery code verified successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing the verification.");
+        }
+    }
+    @GetMapping("/getValid/{email}")
+    public ResponseEntity<Boolean> getValidRecoveryCode(@PathVariable String email) {
+        Optional<RecoveryCode> recoveryCodeOpt = recoveryCodeRepository.findByEmail(email);
+
+        if (recoveryCodeOpt.isPresent()) {
+            boolean isValid = recoveryCodeOpt.get().isValid();
+            return ResponseEntity.ok(isValid);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
         }
     }
 }

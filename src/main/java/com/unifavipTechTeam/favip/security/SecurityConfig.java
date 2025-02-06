@@ -38,7 +38,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/email/send").permitAll()
                         .requestMatchers(HttpMethod.POST, "/email/sendFirstAcessCode").permitAll()
                         .requestMatchers(HttpMethod.POST, "/recovery/verify").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/user/recoveryPassword").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/user/recoveryPassword/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/recovery/getValid/**").permitAll()
                         
                         .requestMatchers(HttpMethod.POST, "/courses/").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/courses/").hasAnyRole("USER", "ADMIN")
