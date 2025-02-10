@@ -117,6 +117,14 @@ Para usar o RecoveryPassword você precisa ter a recovery key gerada na criaçã
 }
 ```
 
+### GetValid
+
+Esta request serve para verificar o status da recovery key no caso se ela e valida ou não
+
+**EndPoint: /recovery/getValid/{email}**
+
+**Exemplo de Request (GET):** /recovery/getValid/exemplo@gmail.com 
+
 ### SendEmail
 
 **Endpoint: /email/send**
@@ -130,4 +138,6 @@ Para usar o RecoveryPassword você precisa ter a recovery key gerada na criaçã
 	"text": "texto de exemplo"
 }
 ```
+
+
 
