@@ -139,5 +139,20 @@ Esta request serve para verificar o status da recovery key no caso se ela e vali
 }
 ```
 
+### Post course
+
+Esta request serve para adicionar um curso
+
+**EndPoint: /courses/post**
+
+**Exemplo de Request (JSON) (POST)**
+
+```json
+{
+  "name": "Computer Science"
+}
+```
+
+
 
 
