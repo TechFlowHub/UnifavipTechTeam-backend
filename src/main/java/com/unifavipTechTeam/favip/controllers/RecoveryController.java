@@ -47,7 +47,7 @@ public class    RecoveryController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing the verification.");
         }
     }
-    @GetMapping("/getValid/{email}")
+    @GetMapping("/get-valid/{email}")
     public ResponseEntity<Boolean> getValidRecoveryCode(@PathVariable String email) {
         Optional<RecoveryCode> recoveryCodeOpt = recoveryCodeRepository.findByEmail(email);
 

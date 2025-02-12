@@ -58,7 +58,7 @@ public class AuthController {
 
         return ResponseEntity.badRequest().build();
     }
-    @PostMapping("/registerAdmin")
+    @PostMapping("/register-admin")
     public ResponseEntity registerAdmin(@RequestBody RegisterRequestDto body) {
         Optional<User> existingUser = this.userRepository.findByEmail(body.email());
 

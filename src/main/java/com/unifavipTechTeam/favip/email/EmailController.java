@@ -28,7 +28,7 @@ public class EmailController {
         return ResponseEntity.ok("Email sent");
     }
 
-    @PostMapping("/sendFirstAcessCode")
+    @PostMapping("/send-first-acess-code")
     public ResponseEntity<String> sendFirstAcessCode(@RequestBody EmailDto emailDto) {
         Optional<User> optionalUser = userRepository.findByEmail(emailDto.to());
         if(optionalUser.isPresent()){

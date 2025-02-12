@@ -18,20 +18,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/getAllUser")
+    @GetMapping("/get-all-user")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/getUser/{id}")
+    @GetMapping("/get-user/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         return userService.getUser(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/deleteUser/{id}")
+    @DeleteMapping("/delete-user/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         try {
             userService.deleteUser(id);
@@ -41,7 +41,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/recoveryPassword/{id}")
+    @PutMapping("/recovery-password/{id}")
     public ResponseEntity<Void> recoveryPassword(
             @PathVariable Long id,
             @RequestBody RecoveryPasswordDto recoveryPasswordDto

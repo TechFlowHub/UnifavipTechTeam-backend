@@ -4,7 +4,6 @@ public class RecoveryPasswordDto {
     private String newPassword;
     private String recoveryKey;
 
-    // Getters e Setters
     public String getNewPassword() {
         return newPassword;
     }
