@@ -153,6 +153,12 @@ Esta request serve para adicionar um curso
 }
 ```
 
+### Get all course
+
+Esta request serve para puxar todos os cursos cadastrados
+
+**EndPoint: /courses/get-all**
+
 
 
 
