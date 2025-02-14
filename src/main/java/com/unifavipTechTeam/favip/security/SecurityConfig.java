@@ -42,20 +42,20 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/recovery/get-valid/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/courses/").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/courses/").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/courses/").hasAnyRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
                         
-                        .requestMatchers(HttpMethod.POST, "/personalData/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/personalData/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/personalData/**").hasAnyRole( "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/personalData/**").hasAnyRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/diversity/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/diversity/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/diversity/**").hasAnyRole( "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/diversity/**").hasAnyRole( "ADMIN")
                         
-                        .requestMatchers(HttpMethod.POST, "/experience/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/experience/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/experience/**").hasAnyRole( "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/experience/**").hasAnyRole( "ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/formation/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/formation/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/formation/**").hasAnyRole( "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/formation/**").hasAnyRole( "ADMIN")
 
                         .anyRequest().authenticated()
                 )

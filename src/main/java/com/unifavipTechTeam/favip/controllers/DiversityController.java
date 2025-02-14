@@ -27,7 +27,7 @@ public class DiversityController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/  get/{id}")
     public ResponseEntity<?> getDiversityById(@PathVariable Long id) {
         try {
             DiversityDTO diversityDTO = diversityService.getDiversityById(id);
