@@ -51,6 +51,10 @@ public class PersonalData {
     @OneToMany(mappedBy = "personalData")
     private List<Formation> formations;
 
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Star> receivedStars;
+
+
     public Long getId() {
         return id;
     }
