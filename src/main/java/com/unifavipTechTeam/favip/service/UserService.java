@@ -72,4 +72,8 @@ public class UserService {
         recoveryCode.setValid(false);
         recoveryCodeRepository.save(recoveryCode);
     }
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + id));
+    }
 }

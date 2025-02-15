@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/recovery/verify").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/user/recovery-password/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/recovery/get-valid/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/star/give/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/star/get/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/courses/").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/courses/").hasAnyRole("ADMIN")

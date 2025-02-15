@@ -133,4 +133,8 @@ public class PersonalDataService {
             personalData.getFormations() != null ? personalData.getFormations().stream().map(Formation::getId).collect(Collectors.toList()) : Collections.emptyList()
         );
     }
+    public PersonalData findById(Long id) {
+        return personalDataRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Personal data not found: " + id));
+    }
 }
