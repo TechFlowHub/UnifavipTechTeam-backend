@@ -1,11 +1,13 @@
 package com.unifavipTechTeam.favip.controllers;
 
+import com.unifavipTechTeam.favip.dto.StarRequestDto;
 import com.unifavipTechTeam.favip.entity.PersonalData;
 import com.unifavipTechTeam.favip.entity.Star;
 import com.unifavipTechTeam.favip.entity.User;
 import com.unifavipTechTeam.favip.service.PersonalDataService;
 import com.unifavipTechTeam.favip.service.StarService;
 import com.unifavipTechTeam.favip.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +26,9 @@ public class StarController {
     }
 
     @PostMapping("/give")
-    public ResponseEntity<String> giveStar(@RequestParam Long giverId, @RequestParam Long receiverId) {
-        User giver = userService.findById(giverId);
-        PersonalData receiver = personalDataService.findById(receiverId);
+    public ResponseEntity<String> giveStar(@RequestBody @Valid StarRequestDto starRequestDto) {
+        User giver = userService.findById(starRequestDto.giverId());
+        PersonalData receiver = personalDataService.findById(starRequestDto.receiverId());
 
         if (giver == null || receiver == null) {
             return ResponseEntity.badRequest().body("Usuário ou Personal Data não encontrado.");
@@ -38,11 +40,5 @@ public class StarController {
         starService.save(star);
 
         return ResponseEntity.ok("Estrela enviada com sucesso!");
-    }
-
-    @GetMapping("/get/{receiverId}")
-    public ResponseEntity<Integer> countStars(@PathVariable Long receiverId) {
-        int starCount = starService.countStars(receiverId);
-        return ResponseEntity.ok(starCount);
     }
 }
