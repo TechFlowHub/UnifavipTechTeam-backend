@@ -159,6 +159,31 @@ Esta request serve para puxar todos os cursos cadastrados
 
 **EndPoint: /courses/get-all**
 
+### Post star
+
+Esta request serve para adicionar estrelas ao personal data
+
+**EndPoint: /start/give**
+
+**Exemplo de Request (JSON) (POST)**
+
+```json
+{
+  "giverId": 2,
+  "receiverId": 3
+}
+```
+
+### Get star
+
+**EndPoint: /star/get/{id}**
+
+**Exemplo de Request (GET): /star/get/1**
+
+
+
+
+
 
 
 
