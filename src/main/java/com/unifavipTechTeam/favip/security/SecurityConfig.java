@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/recovery/get-valid/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/star/give").permitAll()
                         .requestMatchers(HttpMethod.GET, "/star/get/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/star/delete/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/courses/").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/courses/").hasAnyRole("ADMIN")
