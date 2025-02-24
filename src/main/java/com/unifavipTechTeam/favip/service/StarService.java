@@ -14,6 +14,13 @@ public class StarService {
     public StarService(StarRepository starRepository) {
         this.starRepository = starRepository;
     }
+    public Star findById(Long id) {
+        return starRepository.findById(id).orElse(null);
+    }
+
+    public void delete(Long id) {
+        starRepository.deleteById(id);
+    }
 
     public Star save(Star star) {
         return starRepository.save(star);

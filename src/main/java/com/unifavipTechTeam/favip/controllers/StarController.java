@@ -41,4 +41,14 @@ public class StarController {
 
         return ResponseEntity.ok("Estrela enviada com sucesso!");
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteStar(@PathVariable Long id) {
+        Star star = starService.findById(id);
+        if (star == null) {
+            return ResponseEntity.badRequest().body("Estrela não encontrada.");
+        }
+
+        starService.delete(id);
+        return ResponseEntity.ok("Estrela deletada com sucesso!");
+    }
 }
