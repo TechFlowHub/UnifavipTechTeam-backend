@@ -18,5 +18,7 @@ spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
 
+endpoint.frontend=http://localhost:5173
+
 #secret token
 api.security.token.secret=xP5LxLGX?ky6
