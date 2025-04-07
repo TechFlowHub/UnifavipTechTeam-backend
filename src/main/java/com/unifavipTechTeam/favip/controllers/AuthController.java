@@ -7,6 +7,7 @@ import com.unifavipTechTeam.favip.entity.User;
 import com.unifavipTechTeam.favip.repositories.UserRepository;
 import com.unifavipTechTeam.favip.security.TokenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -74,5 +77,23 @@ public class AuthController {
         }
 
         return ResponseEntity.badRequest().build();
+    }
+
+    @PostMapping("/validate-token")
+    public ResponseEntity<Map<String, Object>> validateToken(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+
+        String email = tokenService.validateToken(token);
+
+        Map<String, Object> response = new HashMap<>();
+        if (email != null) {
+            response.put("valid", true);
+            response.put("user", email);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("valid", false);
+            response.put("message", "Token inválido ou expirado.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
     }
 }

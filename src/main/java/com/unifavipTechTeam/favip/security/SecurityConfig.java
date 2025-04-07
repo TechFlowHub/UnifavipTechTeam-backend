@@ -29,11 +29,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/validate-token").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register-admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/email/send").permitAll()
                         .requestMatchers(HttpMethod.POST, "/email/send-first-acess-code").permitAll()
@@ -47,13 +49,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/courses/").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/courses/").hasAnyRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
-                        
+
                         .requestMatchers(HttpMethod.POST, "/personalData/**").hasAnyRole( "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/personalData/**").hasAnyRole("ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/diversity/**").hasAnyRole( "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/diversity/**").hasAnyRole( "ADMIN")
-                        
+
                         .requestMatchers(HttpMethod.POST, "/experience/**").hasAnyRole( "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/experience/**").hasAnyRole( "ADMIN")
 
