@@ -44,6 +44,11 @@ public class AuthController {
         return ResponseEntity.badRequest().build();
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        return ResponseEntity.ok("Logout realizado com sucesso.");
+    }
+
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Validated   RegisterRequestDto body) {
         Optional<User> existingUser = this.userRepository.findByEmail(body.email());
